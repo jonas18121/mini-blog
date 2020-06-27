@@ -10,9 +10,11 @@ use App\Entity\RessourceId;
 use App\Entity\Timestapable;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ArticleRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
+ * @ApiResource()
  */
 class Article
 {
