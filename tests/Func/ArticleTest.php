@@ -53,6 +53,6 @@ class ArticleTest extends AbstractEndPoint
     {
         $faker = Factory::create();
 
-        return sprintf($this->articlePayload, $faker->word(), $faker->text(), $faker->numberBetween(1, 18));
+        return sprintf($this->articlePayload, $faker->word(), $faker->text(), $faker->numberBetween(1, 17));
     }
 }
