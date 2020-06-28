@@ -13,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class ArticleTest extends AbstractEndPoint
 {
-    private $articlePayload = '{ "name": "%s", "content": "%s", "author": "/api/users/1" }';
+    private $articlePayload = '{ "name": "%s", "content": "%s", "author": "/api/users/%d" }';
 
     public function testGetArticles() : void
     {
@@ -53,6 +53,6 @@ class ArticleTest extends AbstractEndPoint
     {
         $faker = Factory::create();
 
-        return sprintf($this->articlePayload, $faker->word(), $faker->text());
+        return sprintf($this->articlePayload, $faker->word(), $faker->text(), $faker->numberBetween(1, 18));
     }
 }

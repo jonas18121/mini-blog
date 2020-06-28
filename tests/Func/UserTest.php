@@ -13,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class UserTest extends AbstractEndPoint
 {
-    private $userPayload = '{ "email": "%s", "password": "password" }';
+    private $userPayload = '{ "email": "%s", "password": "%s" }';
 
     public function testGetUsers() : void
     {
@@ -45,11 +45,12 @@ class UserTest extends AbstractEndPoint
         self::assertJson($responseContent); // est ce que $responseContent est de type json
         self::assertNotEmpty($responseContent); // est ce que $responseContent n'est pas vide
     } 
+    
 
     private function getPayload()
     {
         $faker = Factory::create();
 
-        return sprintf($this->userPayload, $faker->email());
+        return sprintf($this->userPayload, $faker->email(), $faker->password());
     }
 }
