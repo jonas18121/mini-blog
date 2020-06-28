@@ -26,7 +26,7 @@ class UserTest extends AbstractEndPoint
 
         self::assertEquals(Response::HTTP_OK, $response->getStatusCode());
         self::assertJson($responseContent); // est ce que $responseContent est de type json
-        self::assertNotEmpty($responseContent); // est ce que $responseContent n'est pas vide
+        self::assertNotEmpty($responseDecoded); // est ce que $responseContent n'est pas vide
     } 
 
     public function testPostUser() : void
