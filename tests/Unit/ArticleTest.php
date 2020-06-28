@@ -3,7 +3,7 @@
 // forcer les erreurs si on a pas bien typé nos class
 declare(strict_types=1);
 
-namespace App\Tests\Unit;
+namespace App\tests\Unit;
 
 use App\Entity\User;
 use App\Entity\Article;
@@ -49,7 +49,5 @@ class ArticleTest extends TestCase
 
         self::assertInstanceOf(Article::class, $response);
         self::assertInstanceOf(User::class, $getAuthor);
-
-
     }
 }
