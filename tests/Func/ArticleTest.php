@@ -13,6 +13,8 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class ArticleTest extends AbstractEndPoint
 {
+    private $articlePayload = '{ "name": "%s", "content": "%s", "author": "/api/users/1" }';
+
     public function testGetArticles() : void
     {
         $response = $this->getResponseFromRequest(
@@ -28,5 +30,29 @@ class ArticleTest extends AbstractEndPoint
         self::assertEquals(Response::HTTP_OK, $response->getStatusCode());
         self::assertJson($responseContent); // est ce que $responseContent est de type json
         self::assertNotEmpty($responseDecoded); // est ce que $responseContent n'est pas vide
+    }
+
+    public function testPostArticle() : void
+    {
+        $response = $this->getResponseFromRequest(
+            Request::METHOD_POST, 
+            '/api/articles',
+            $this->getPayload()
+        );
+
+        $responseContent = $response->getContent();
+        $responseDecoded = json_decode($responseContent);
+        //dd($responseDecoded);
+
+        self::assertEquals(Response::HTTP_CREATED, $response->getStatusCode());
+        self::assertJson($responseContent); // est ce que $responseContent est de type json
+        self::assertNotEmpty($responseContent); // est ce que $responseContent n'est pas vide
+    } 
+
+    private function getPayload()
+    {
+        $faker = Factory::create();
+
+        return sprintf($this->articlePayload, $faker->word(), $faker->text());
     }
 }
