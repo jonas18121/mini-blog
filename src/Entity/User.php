@@ -16,7 +16,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * video numero 7 stopper a 00:11
+ * video numero 7 stopper a 12:38
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ApiResource()
  */
