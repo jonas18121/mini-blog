@@ -49,7 +49,5 @@ class ArticleTest extends TestCase
 
         self::assertInstanceOf(Article::class, $response);
         self::assertInstanceOf(User::class, $getAuthor);
-
-
     }
 }
