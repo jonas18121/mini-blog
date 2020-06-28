@@ -37,7 +37,7 @@ trait Timestapable
      *
      * @return  self
      */ 
-    public function setCreatedAt(\DateTimeInterface $createdAt): Timestapable
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
@@ -61,7 +61,7 @@ trait Timestapable
      *
      * @return  self
      */ 
-    public function setUpdateAt(?\DateTimeInterface $updateAt): Timestapable
+    public function setUpdateAt(?\DateTimeInterface $updateAt): self
     {
         $this->updateAt = $updateAt;
 
