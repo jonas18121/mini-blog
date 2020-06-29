@@ -67,7 +67,7 @@ class UserTest extends AbstractEndPoint
     {
         $response = $this->getResponseFromRequest(
             Request::METHOD_DELETE, 
-            '/api/users/33'
+            '/api/users/36'
         );
 
         self::assertEquals(Response::HTTP_NO_CONTENT, $response->getStatusCode());
