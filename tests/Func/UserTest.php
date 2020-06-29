@@ -46,22 +46,34 @@ class UserTest extends AbstractEndPoint
         self::assertNotEmpty($responseDecoded); // est ce que $responseContent n'est pas vide
     } 
 
-    public function testDeleteUser() : void
+    public function testPutUser() : void
     {
         $response = $this->getResponseFromRequest(
-            Request::METHOD_DELETE, 
-            '/api/users/23'
+            Request::METHOD_PUT, 
+            '/api/users/5',
+            $this->getPayload()
         );
 
         $responseContent = $response->getContent();
         $responseDecoded = json_decode($responseContent);
+        //dd($responseDecoded);
 
-        self::assertEquals(Response::HTTP_NOT_FOUND, $response->getStatusCode());
-        //self::assertJson($responseContent); // est ce que $responseContent est de type json
+        self::assertEquals(Response::HTTP_OK, $response->getStatusCode());
+        self::assertJson($responseContent); // est ce que $responseContent est de type json
         self::assertNotEmpty($responseDecoded); // est ce que $responseContent n'est pas vide
+    }
+
+    public function testDeleteUser() : void
+    {
+        $response = $this->getResponseFromRequest(
+            Request::METHOD_DELETE, 
+            '/api/users/33'
+        );
+
+        self::assertEquals(Response::HTTP_NO_CONTENT, $response->getStatusCode());
     } 
 
-    public function testOneUser() : void
+    public function testGetOneUser() : void
     {
         $response = $this->getResponseFromRequest(
             Request::METHOD_GET, 
@@ -77,7 +89,7 @@ class UserTest extends AbstractEndPoint
         self::assertNotEmpty($responseDecoded); // est ce que $responseContent n'est pas vide
     }
 
-    private function getPayload()
+    private function getPayload() : string
     {
         $faker = Factory::create();
 
