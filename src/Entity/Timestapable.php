@@ -21,7 +21,7 @@ trait Timestapable
      * @ORM\Column(type="datetime", nullable=true)
      * @Groups({"user_read","user_details_read", "article_details_read", "article_read"})
      */
-    private ?\DateTimeInterface $updateAt;
+    private ?\DateTimeInterface $updatedAt;
 
 
     /**
@@ -49,25 +49,25 @@ trait Timestapable
     }
 
     /**
-     * Get the value of updateAt
+     * Get the value of updatedAt
      *
      * @return  \DateTimeInterface
      */ 
-    public function getUpdateAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->updateAt;
+        return $this->updatedAt;
     }
 
     /**
-     * Set the value of updateAt
+     * Set the value of updatedAt
      *
-     * @param  \DateTimeInterface  $updateAt
+     * @param  \DateTimeInterface  $updatedAt
      *
      * @return  self
      */ 
-    public function setUpdateAt(?\DateTimeInterface $updateAt): self
+    public function setUpdateAt(?\DateTimeInterface $updatedAt): self
     {
-        $this->updateAt = $updateAt;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
