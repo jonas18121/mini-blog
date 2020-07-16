@@ -65,7 +65,7 @@ trait Timestapable
      *
      * @return  self
      */ 
-    public function setUpdateAt(?\DateTimeInterface $updatedAt): self
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 

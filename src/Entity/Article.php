@@ -33,7 +33,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *          "delete",
  *          "put_updated_at"={
  *              "method"="PUT",
- *              "path"="/articles/{id}/update-at",
+ *              "path"="/articles/{id}/updated-at",
  *              "controller"=ArticleUpdatedAt::class,
  *          }
  *      }
