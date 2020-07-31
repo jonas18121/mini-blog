@@ -78,6 +78,7 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Groups({"user_read","user_details_read", "article_details_read"})
      */
     private string $password;
 
@@ -124,9 +125,16 @@ class User implements UserInterface
      *
      * @see UserInterface
      */
-    public function getUsername(): string
+    public function getUsername(): ?string
     {
-        return (string) $this->email;
+        return (string)$this->email;
+    }
+
+    public function setUsername(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
     }
 
     /**
