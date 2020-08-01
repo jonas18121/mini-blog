@@ -28,7 +28,7 @@ class SecurityController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
             
-            $user->setCreatedAt(new \DateTime());
+            // $user->setCreatedAt(new \DateTime());
 
             $hash = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hash);
