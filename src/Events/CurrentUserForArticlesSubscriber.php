@@ -29,6 +29,12 @@ class CurrentUserForArticlesSubscriber implements EventSubscriberInterface
         ];
     }
 
+    /**
+     * Insert automatiquement l'id de l'auteur de l'article , lors de la création de l'article
+     *
+     * @param ViewEvent $event
+     * @return void
+     */
     public function currentUserForArticles(ViewEvent $event) : void
     {
         $article = $event->getControllerResult();
