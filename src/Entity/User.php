@@ -32,7 +32,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * video numero 11 stopper a 16:00
+ * video numero 12 stopper a 00:00
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * 
  * @ApiResource(
