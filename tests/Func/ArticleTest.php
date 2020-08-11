@@ -1,6 +1,5 @@
 <?php
 
-// forcer les erreurs si on a pas bien typé nos class
 declare(strict_types=1);
 
 namespace App\Tests\Func;
@@ -13,7 +12,8 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class ArticleTest extends AbstractEndPoint
 {
-    private $articlePayload = '{ "name": "%s", "content": "%s", "author": "/api/users/%d" }';
+    private $articlePayload = '{ "name": "%s", "content": "%s" }';
+    //private $articlePayload = '{ "name": "%s", "content": "%s", "author": "/api/users/%d" }';
 
     private $articlePutPayload = '{ "name": "%s", "content": "%s" }';
 
@@ -21,11 +21,14 @@ class ArticleTest extends AbstractEndPoint
     {
         $response = $this->getResponseFromRequest(
             Request::METHOD_GET, 
-            '/api/articles'
+            '/api/articles',
+            '',
+            [],
+            false
         );
 
         $responseContent = $response->getContent();
-        $responseDecoded = json_decode($responseContent);
+        $responseDecoded = json_decode($responseContent, true);
 
         //dd($responseContent);
 
@@ -38,7 +41,10 @@ class ArticleTest extends AbstractEndPoint
     {
         $response = $this->getResponseFromRequest(
             Request::METHOD_GET, 
-            '/api/articles/1'
+            '/api/articles/44',
+            '',
+            [],
+            false
         );
 
         $responseContent = $response->getContent();
@@ -48,15 +54,16 @@ class ArticleTest extends AbstractEndPoint
 
         self::assertEquals(Response::HTTP_OK, $response->getStatusCode());
         self::assertJson($responseContent); // est ce que $responseContent est de type json
-        self::assertNotEmpty($responseDecoded); // est ce que $responseContent n'est pas vide
+        //self::assertNotEmpty($responseDecoded); // est ce que $responseContent n'est pas vide
     }
 
     public function testPutArticles() : void
     {
         $response = $this->getResponseFromRequest(
             Request::METHOD_PUT, 
-            '/api/articles/7',
-            $this->getPutPayload()
+            '/api/articles/44',
+            $this->getPutPayload(),
+            []
         );
 
         $responseContent = $response->getContent();
@@ -72,7 +79,9 @@ class ArticleTest extends AbstractEndPoint
     {
         $response = $this->getResponseFromRequest(
             Request::METHOD_DELETE, 
-            '/api/articles/29'
+            '/api/articles/45',
+            '',
+            []
         );
 
         self::assertEquals(Response::HTTP_NO_CONTENT, $response->getStatusCode());
@@ -83,7 +92,8 @@ class ArticleTest extends AbstractEndPoint
         $response = $this->getResponseFromRequest(
             Request::METHOD_POST, 
             '/api/articles',
-            $this->getPayload()
+            $this->getPayload(),
+            []
         );
 
         $responseContent = $response->getContent();
