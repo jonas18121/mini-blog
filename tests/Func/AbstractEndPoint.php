@@ -30,6 +30,8 @@ abstract class AbstractEndPoint extends WebTestCase
         // $client = self::createClient();
         $client = $this->createAuthentificationClient($withAuthentification);
 
+        //dd($client);
+
         $client->request(
             $method, 
             $uri . '.json',
@@ -38,6 +40,8 @@ abstract class AbstractEndPoint extends WebTestCase
             $this->serverInformation,
             $payload
         );
+
+        //dd($client->getResponse());
 
         return $client->getResponse();
     }
@@ -56,10 +60,10 @@ abstract class AbstractEndPoint extends WebTestCase
             [],
             [],
             $this->serverInformation,
-            sprintf($this->loginPayload, "moiUserMen@gmail.com", "moiUserMen")
+            sprintf($this->loginPayload, "chienneTou@test.fr", "chienneTou")
         );
 
-        $data = json_decode($client->getResponse()->getContent(), true);
+        $data = json_decode($client->getResponse()->getContent(), true); //avoir le token
 
         $client->setServerParameter('HTTP_Authorization', sprintf('Bearer %s', $data['token']));
 

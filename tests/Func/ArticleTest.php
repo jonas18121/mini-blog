@@ -50,18 +50,18 @@ class ArticleTest extends AbstractEndPoint
         $responseContent = $response->getContent();
         $responseDecoded = json_decode($responseContent);
 
-        //dd($responseContent);
+        // dd($responseDecoded);
 
         self::assertEquals(Response::HTTP_OK, $response->getStatusCode());
         self::assertJson($responseContent); // est ce que $responseContent est de type json
-        //self::assertNotEmpty($responseDecoded); // est ce que $responseContent n'est pas vide
+        // self::assertNotEmpty($responseDecoded); // est ce que $responseContent n'est pas vide
     }
 
     public function testPutArticles() : void
     {
         $response = $this->getResponseFromRequest(
             Request::METHOD_PUT, 
-            '/api/articles/44',
+            '/api/articles/48',
             $this->getPutPayload(),
             []
         );
@@ -75,35 +75,35 @@ class ArticleTest extends AbstractEndPoint
         self::assertNotEmpty($responseDecoded); // est ce que $responseContent n'est pas vide
     }
 
-    public function testDeleteArticles() : void
-    {
-        $response = $this->getResponseFromRequest(
-            Request::METHOD_DELETE, 
-            '/api/articles/45',
-            '',
-            []
-        );
+    // public function testDeleteArticles() : void
+    // {
+    //     $response = $this->getResponseFromRequest(
+    //         Request::METHOD_DELETE, 
+    //         '/api/articles/49',
+    //         '',
+    //         []
+    //     );
 
-        self::assertEquals(Response::HTTP_NO_CONTENT, $response->getStatusCode());
-    }
+    //     self::assertEquals(Response::HTTP_NO_CONTENT, $response->getStatusCode());
+    // }
 
-    public function testPostArticle() : void
-    {
-        $response = $this->getResponseFromRequest(
-            Request::METHOD_POST, 
-            '/api/articles',
-            $this->getPayload(),
-            []
-        );
+    // public function testPostArticle() : void
+    // {
+    //     $response = $this->getResponseFromRequest(
+    //         Request::METHOD_POST, 
+    //         '/api/articles',
+    //         $this->getPayload(),
+    //         []
+    //     );
 
-        $responseContent = $response->getContent();
-        $responseDecoded = json_decode($responseContent);
-        //dd($responseDecoded);
+    //     $responseContent = $response->getContent();
+    //     $responseDecoded = json_decode($responseContent);
+    //     //dd($responseDecoded);
 
-        self::assertEquals(Response::HTTP_CREATED, $response->getStatusCode());
-        self::assertJson($responseContent); // est ce que $responseContent est de type json
-        self::assertNotEmpty($responseDecoded); // est ce que $responseContent n'est pas vide
-    } 
+    //     self::assertEquals(Response::HTTP_CREATED, $response->getStatusCode());
+    //     self::assertJson($responseContent); // est ce que $responseContent est de type json
+    //     self::assertNotEmpty($responseDecoded); // est ce que $responseContent n'est pas vide
+    // } 
 
     private function getPayload()
     {
