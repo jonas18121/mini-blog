@@ -1,6 +1,5 @@
 <?php
 
-// forcer les erreurs si on a pas bien typé nos class
 declare(strict_types=1);
 
 namespace App\Entity;
@@ -32,7 +31,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * video numero 12 stopper a 00:00
+ * video numero 13 stopper a 00:00
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * 
  * @ApiResource(
