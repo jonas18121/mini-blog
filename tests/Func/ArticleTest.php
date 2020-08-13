@@ -6,9 +6,9 @@ namespace App\Tests\Func;
 
 use App\Tests\Func\AbstractEndPoint;
 use Faker\Factory;
+use App\Entity\Article;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class ArticleTest extends AbstractEndPoint
 {
@@ -26,11 +26,12 @@ class ArticleTest extends AbstractEndPoint
             [],
             false
         );
+        
 
         $responseContent = $response->getContent();
         $responseDecoded = json_decode($responseContent, true);
 
-        //dd($responseContent);
+        //dd($responseContent, 'Articles');
 
         self::assertEquals(Response::HTTP_OK, $response->getStatusCode());
         self::assertJson($responseContent); // est ce que $responseContent est de type json
@@ -44,36 +45,36 @@ class ArticleTest extends AbstractEndPoint
             '/api/articles/44',
             '',
             [],
-            false
+            true
         );
 
         $responseContent = $response->getContent();
         $responseDecoded = json_decode($responseContent);
 
-        // dd($responseDecoded);
+        //dd($responseContent, 'Articles svp ');
 
         self::assertEquals(Response::HTTP_OK, $response->getStatusCode());
         self::assertJson($responseContent); // est ce que $responseContent est de type json
         // self::assertNotEmpty($responseDecoded); // est ce que $responseContent n'est pas vide
     }
 
-    public function testPutArticles() : void
-    {
-        $response = $this->getResponseFromRequest(
-            Request::METHOD_PUT, 
-            '/api/articles/48',
-            $this->getPutPayload(),
-            []
-        );
+    // public function testPutArticles() : void
+    // {
+    //     $response = $this->getResponseFromRequest(
+    //         Request::METHOD_PUT, 
+    //         '/api/articles/48',
+    //         $this->getPutPayload(),
+    //         []
+    //     );
 
-        $responseContent = $response->getContent();
-        $responseDecoded = json_decode($responseContent);
-        //dd($responseDecoded);
+    //     $responseContent = $response->getContent();
+    //     $responseDecoded = json_decode($responseContent);
+    //     //dd($responseDecoded);
 
-        self::assertEquals(Response::HTTP_OK, $response->getStatusCode());
-        self::assertJson($responseContent); // est ce que $responseContent est de type json
-        self::assertNotEmpty($responseDecoded); // est ce que $responseContent n'est pas vide
-    }
+    //     self::assertEquals(Response::HTTP_OK, $response->getStatusCode());
+    //     self::assertJson($responseContent); // est ce que $responseContent est de type json
+    //     self::assertNotEmpty($responseDecoded); // est ce que $responseContent n'est pas vide
+    // }
 
     // public function testDeleteArticles() : void
     // {

@@ -29,6 +29,8 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * video numero 13 stopper a 00:00
@@ -57,6 +59,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ApiFilter(RangeFilter::class, properties={"age"})
  * @ApiFilter(ExistsFilter::class, properties={"updatedAt"})
  * @ApiFilter(OrderFilter::class, properties={"id"}, arguments={"orderParameterName"="order"})
+ * 
+ * @UniqueEntity("email", message="Cette email est déjà utiliser")
  */
 class User implements UserInterface
 {
@@ -66,6 +70,8 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Groups({"user_read","user_details_read", "article_details_read"})
+     * @Assert\NotBlank(message="L'email est obligatoire")
+     * @Assert\Email(message="Le format de l'email est invalide")
      */
     private string $email;// hinting ecrit comme ça est possible depuis php 7.4 
 
@@ -77,6 +83,7 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\NotBlank(message="Le mot de passe est obligatoire")
      */
     private string $password;
 

@@ -1,11 +1,14 @@
 <?php
 
+//a faire : test video 11
+
 declare(strict_types=1);
 
 namespace App\Tests\Func;
 
 use App\Tests\Func\AbstractEndPoint;
 use Faker\Factory;
+use App\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -18,12 +21,10 @@ class UserTest extends AbstractEndPoint
     {
         $response = $this->getResponseFromRequest(
             Request::METHOD_GET, 
-            '/api/users',
-            '',
-            []
+            '/api/users'
         );
 
-        dd($response);
+        //dd($response, 'UserTest');
 
         $responseContent = $response->getContent();
         $responseDecoded = json_decode($responseContent);
@@ -105,11 +106,11 @@ class UserTest extends AbstractEndPoint
             Request::METHOD_GET, 
             '/api/users',
             '',
-            ['email' => 'chienneTou@test.fr'],
+            ["email" => "chienneTou@test.fr"],
             false
         );
         
-        //dd($response);
+        //dd($response->getContent());
 
         $responseContent = $response->getContent();
         $responseDecoded = json_decode($responseContent, true);
