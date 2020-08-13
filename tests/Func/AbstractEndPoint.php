@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 abstract class AbstractEndPoint extends WebTestCase
 {
-    protected array $serverInformation = [
+    protected array $serverInformations = [
         'ACCEPT' => 'application/json',
         'CONTENT_TYPE' => 'application/json'
     ];
@@ -30,14 +30,19 @@ abstract class AbstractEndPoint extends WebTestCase
         // $client = self::createClient();
         $client = $this->createAuthentificationClient($withAuthentification);
 
+        //dump($client);
+
         $client->request(
             $method, 
             $uri . '.json',
             $parameter,
             [],
-            $this->serverInformation,
+            $this->serverInformations,
             $payload
         );
+
+        
+        //dd($client->getResponse());
 
         return $client->getResponse();
     }
@@ -50,17 +55,20 @@ abstract class AbstractEndPoint extends WebTestCase
             return $client;
         }
 
+        //dd($client,'AbstractEndPoint');
+
         $client->request(
             Request::METHOD_POST, 
             '/api/login_check',
             [],
             [],
-            $this->serverInformation,
-            sprintf($this->loginPayload, "moiUserMen@gmail.com", "moiUserMen")
+            $this->serverInformations,
+            sprintf($this->loginPayload, "chienneTou@test.fr", "chienneTou")
         );
 
-        $data = json_decode($client->getResponse()->getContent(), true);
+        $data = json_decode($client->getResponse()->getContent(), true); //avoir le token
 
+        //dd($data);
         $client->setServerParameter('HTTP_Authorization', sprintf('Bearer %s', $data['token']));
 
         return $client;

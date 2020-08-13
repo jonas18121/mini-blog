@@ -1,12 +1,14 @@
 <?php
 
-// forcer les erreurs si on a pas bien typé nos class
+//a faire : test video 11
+
 declare(strict_types=1);
 
 namespace App\Tests\Func;
 
 use App\Tests\Func\AbstractEndPoint;
 use Faker\Factory;
+use App\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -19,13 +21,10 @@ class UserTest extends AbstractEndPoint
     {
         $response = $this->getResponseFromRequest(
             Request::METHOD_GET, 
-            '/api/users',
-            '',
-            [],
-            false
+            '/api/users'
         );
-        
-        //dd($response);
+
+        //dd($response, 'UserTest');
 
         $responseContent = $response->getContent();
         $responseDecoded = json_decode($responseContent);
@@ -42,7 +41,7 @@ class UserTest extends AbstractEndPoint
     //         '/api/users',
     //         $this->getPayload(),
     //         [],
-    //         false
+    //         false 
     //     );
 
     //     $responseContent = $response->getContent();
@@ -60,13 +59,12 @@ class UserTest extends AbstractEndPoint
     //         Request::METHOD_PUT, 
     //         '/api/users/49',
     //         $this->getPayload(),
-    //         [],
-    //         false
+    //         []
     //     );
 
     //     $responseContent = $response->getContent();
     //     $responseDecoded = json_decode($responseContent);
-    //     dump($responseDecoded);
+    //     //dump($responseDecoded);
 
     //     self::assertEquals(Response::HTTP_OK, $response->getStatusCode());
     //     self::assertJson($responseContent); // est ce que $responseContent est de type json
@@ -87,7 +85,7 @@ class UserTest extends AbstractEndPoint
     {
         $response = $this->getResponseFromRequest(
             Request::METHOD_GET, 
-            '/api/users/49',
+            '/api/users/51',
             '',
             [],
             false
@@ -95,11 +93,35 @@ class UserTest extends AbstractEndPoint
 
         $responseContent = $response->getContent();
         $responseDecoded = json_decode($responseContent);
-        //dd($responseDecoded);
+        //dd($response);
 
         self::assertEquals(Response::HTTP_OK, $response->getStatusCode());
         self::assertJson($responseContent); // est ce que $responseContent est de type json
         // self::assertNotEmpty($responseDecoded); // est ce que $responseContent n'est pas vide
+    }
+
+    public function testGetDefaultUser() : int
+    {
+        $response = $this->getResponseFromRequest(
+            Request::METHOD_GET, 
+            '/api/users',
+            '',
+            ["email" => "chienneTou@test.fr"],
+            false
+        );
+        
+        //dd($response->getContent());
+
+        $responseContent = $response->getContent();
+        $responseDecoded = json_decode($responseContent, true);
+
+        // dd($responseDecoded[0]['id']);
+
+        self::assertEquals(Response::HTTP_OK, $response->getStatusCode());
+        self::assertJson($responseContent); // est ce que $responseContent est de type json
+        self::assertNotEmpty($responseDecoded); // est ce que $responseContent n'est pas vide
+
+        return $responseDecoded[0]['id'];
     }
 
     private function getPayload() : string
