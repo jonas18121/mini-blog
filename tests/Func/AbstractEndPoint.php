@@ -41,9 +41,6 @@ abstract class AbstractEndPoint extends WebTestCase
             $payload
         );
 
-        
-        //dd($client->getResponse());
-
         return $client->getResponse();
     }
     
@@ -54,8 +51,8 @@ abstract class AbstractEndPoint extends WebTestCase
         if(!$withAuthentification){
             return $client;
         }
-
-        //dd($client,'AbstractEndPoint');
+        
+        // dd($client,'AbstractEndPoint');
 
         $client->request(
             Request::METHOD_POST, 
@@ -68,7 +65,6 @@ abstract class AbstractEndPoint extends WebTestCase
 
         $data = json_decode($client->getResponse()->getContent(), true); //avoir le token
 
-        //dd($data);
         $client->setServerParameter('HTTP_Authorization', sprintf('Bearer %s', $data['token']));
 
         return $client;

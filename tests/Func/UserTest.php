@@ -21,10 +21,14 @@ class UserTest extends AbstractEndPoint
     {
         $response = $this->getResponseFromRequest(
             Request::METHOD_GET, 
-            '/api/users'
+            '/api/users',
+            '',
+            [],
+            false
         );
 
         //dd($response, 'UserTest');
+        //dd($response->getContent(), 'UserTest');
 
         $responseContent = $response->getContent();
         $responseDecoded = json_decode($responseContent);

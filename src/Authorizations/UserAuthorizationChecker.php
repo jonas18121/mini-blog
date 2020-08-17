@@ -11,7 +11,7 @@ use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class UserAuthorizationChecker
+class UserAuthorizationChecker implements Authorization
 {
     private array $methodAllowed = [
         Request::METHOD_PUT,
