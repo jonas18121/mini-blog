@@ -11,7 +11,7 @@ use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class UserAuthorizationChecker implements Authorization
+class UserAuthorizationChecker
 {
     private array $methodAllowed = [
         Request::METHOD_PUT,
@@ -30,7 +30,8 @@ class UserAuthorizationChecker implements Authorization
     {
         $this->isAuthenticated();
 
-        if($this->isMethodAllowed($method) && $user->getId() !== $this->user->getId()){
+        if($this->isMethodAllowed($method) && $user->getId() !== $this->user->getId())
+        {
             $errorMessage = 'It\'s not your ressource ';
             throw new UnauthorizedHttpException($errorMessage, $errorMessage);
         }
@@ -38,8 +39,9 @@ class UserAuthorizationChecker implements Authorization
 
     public function isAuthenticated() : void
     {
-        if(null === $this->user){
-            $errorMessage = 'You are not authoticated';
+        if(null === $this->user)
+        {
+            $errorMessage = 'You are not authenticated';
             throw new UnauthorizedHttpException($errorMessage, $errorMessage);
         }
     }
