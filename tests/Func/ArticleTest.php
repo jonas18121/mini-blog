@@ -27,7 +27,6 @@ class ArticleTest extends AbstractEndPoint
             false
         );
         
-
         $responseContent = $response->getContent();
         $responseDecoded = json_decode($responseContent, true);
 
