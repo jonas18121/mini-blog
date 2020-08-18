@@ -7,7 +7,7 @@ namespace App\Normalizer;
 use App\Normalizer\NormalizerInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-class RessourceAccessExceptionNormalizer implements AbstractNormalizer
+class RessourceAccessExceptionNormalizer extends AbstractNormalizer
 {
     public function normalize(\Exception $exception) : array
     {

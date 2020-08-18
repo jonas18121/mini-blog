@@ -6,7 +6,7 @@ namespace App\Normalizer;
 
 use App\Normalizer\NormalizerInterface;
 
-class AbstractNormalizer implements NormalizerInterface
+abstract class AbstractNormalizer implements NormalizerInterface
 {
     private array $exceptionTypes;
 
@@ -17,6 +17,6 @@ class AbstractNormalizer implements NormalizerInterface
 
     public function supports(\Exception $exception) : bool
     {
-        
+        return in_array(get_class($exception), $this->exceptionTypes, true);
     }
 }
