@@ -33,7 +33,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * video numero 15 stopper a 00:00
+ * video numero 18 stopper à 05:00
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * 
  * @ApiResource(
