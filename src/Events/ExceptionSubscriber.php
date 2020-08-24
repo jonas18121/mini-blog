@@ -9,16 +9,22 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
+use App\Services\ExceptionNormalizerFormatterInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class ExceptionListener implements EventSubscriberInterface
+class ExceptionSubscriber implements EventSubscriberInterface
 {
     private static array $normalizers;
     private SerializerInterface $serializer;
+    private ExceptionNormalizerFormatterInterface $exceptionNormalizerFormatter;
 
-    public function __construct(SerializerInterface $serializer)
+    public function __construct(
+        SerializerInterface $serializer,
+        ExceptionNormalizerFormatterInterface $exceptionNormalizerFormatter
+    )
     {
-        $this->serializer = $serializer;   
+        $this->serializer = $serializer;  
+        $this->exceptionNormalizerFormatter = $exceptionNormalizerFormatter;  
     }
 
     public static function getSubscribedEvents()
@@ -47,15 +53,13 @@ class ExceptionListener implements EventSubscriberInterface
 
         if(null === $result)
         {
-            $result['code'] = Response::HTTP_BAD_REQUEST ; 
-
-            $result['body'] = [
-                'code' => $result['code'],
-                'message' => $exception->getMessage()
-            ];
+            $result = $this->exceptionNormalizerFormatter->format(
+                $exception->getMessage(),
+                Response::HTTP_BAD_REQUEST
+            );
         }
 
-        $body = $this->serializer->serialize($result['body'] , 'json');
+        $body = $this->serializer->serialize($result, 'json');
 
         $response = new Response($body, $result['code']);
         $response->headers->set('Content-Type', 'application/json');

@@ -9,15 +9,23 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RessourceAccessExceptionNormalizer extends AbstractNormalizer
 {
+    // public function normalize(\Exception $exception) : array
+    // {
+    //    $result['code'] = Response::HTTP_UNAUTHORIZED ; 
+
+    //    $result['body'] = [
+    //         'code' => $result['code'],
+    //         'message' => $exception->getMessage()
+    //    ];
+
+    //    return $result;
+    // }
+
     public function normalize(\Exception $exception) : array
     {
-       $result['code'] = Response::HTTP_UNAUTHORIZED ; 
-
-       $result['body'] = [
-            'code' => $result['code'],
-            'message' => $exception->getMessage()
-       ];
-
-       return $result;
+        return $this->exceptionNormalizerFormatter->format(
+           $exception->getMessage(),
+           Response::HTTP_UNAUTHORIZED
+        );
     }
 }
