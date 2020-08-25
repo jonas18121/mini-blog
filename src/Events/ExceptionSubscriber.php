@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Events;
 
+use App\Factory\JsonResponseInterface;
 use App\Normalizer\NormalizerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -17,14 +18,17 @@ class ExceptionSubscriber implements EventSubscriberInterface
     private static array $normalizers;
     private SerializerInterface $serializer;
     private ExceptionNormalizerFormatterInterface $exceptionNormalizerFormatter;
+    private JsonResponseInterface $jsonResponseInterface;
 
     public function __construct(
         SerializerInterface $serializer,
-        ExceptionNormalizerFormatterInterface $exceptionNormalizerFormatter
+        ExceptionNormalizerFormatterInterface $exceptionNormalizerFormatter,
+        JsonResponseInterface $jsonResponseInterface
     )
     {
         $this->serializer = $serializer;  
         $this->exceptionNormalizerFormatter = $exceptionNormalizerFormatter;  
+        $this->jsonResponseInterface = $jsonResponseInterface;
     }
 
     public static function getSubscribedEvents()
@@ -60,12 +64,8 @@ class ExceptionSubscriber implements EventSubscriberInterface
         }
 
         $body = $this->serializer->serialize($result, 'json');
-
-        $response = new Response($body, $result['code']);
-        $response->headers->set('Content-Type', 'application/json');
-
+        $response = $this->jsonResponseInterface->getJsonResponse($result['code'], $body);
         $event->setResponse($response);
-
     }
 
     public function addNormalizer(NormalizerInterface $normalizer)
