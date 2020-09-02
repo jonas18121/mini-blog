@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Func;
 
-use App\Tests\Func\AbstractEndPoint;
 use Faker\Factory;
-use App\Entity\Article;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -17,16 +15,16 @@ class ArticleTest extends AbstractEndPoint
 
     private $articlePutPayload = '{ "name": "%s", "content": "%s" }';
 
-    public function testGetArticles() : void
+    public function testGetArticles(): void
     {
         $response = $this->getResponseFromRequest(
-            Request::METHOD_GET, 
+            Request::METHOD_GET,
             '/api/articles',
             '',
             [],
             false
         );
-        
+
         $responseContent = $response->getContent();
         $responseDecoded = json_decode($responseContent, true);
 
@@ -37,10 +35,10 @@ class ArticleTest extends AbstractEndPoint
         self::assertNotEmpty($responseDecoded); // est ce que $responseContent n'est pas vide
     }
 
-    public function testGetOneArticles() : void
+    public function testGetOneArticles(): void
     {
         $response = $this->getResponseFromRequest(
-            Request::METHOD_GET, 
+            Request::METHOD_GET,
             '/api/articles/44',
             '',
             [],
@@ -60,7 +58,7 @@ class ArticleTest extends AbstractEndPoint
     // public function testPutArticles() : void
     // {
     //     $response = $this->getResponseFromRequest(
-    //         Request::METHOD_PUT, 
+    //         Request::METHOD_PUT,
     //         '/api/articles/48',
     //         $this->getPutPayload(),
     //         []
@@ -78,7 +76,7 @@ class ArticleTest extends AbstractEndPoint
     // public function testDeleteArticles() : void
     // {
     //     $response = $this->getResponseFromRequest(
-    //         Request::METHOD_DELETE, 
+    //         Request::METHOD_DELETE,
     //         '/api/articles/49',
     //         '',
     //         []
@@ -90,7 +88,7 @@ class ArticleTest extends AbstractEndPoint
     // public function testPostArticle() : void
     // {
     //     $response = $this->getResponseFromRequest(
-    //         Request::METHOD_POST, 
+    //         Request::METHOD_POST,
     //         '/api/articles',
     //         $this->getPayload(),
     //         []
@@ -103,7 +101,7 @@ class ArticleTest extends AbstractEndPoint
     //     self::assertEquals(Response::HTTP_CREATED, $response->getStatusCode());
     //     self::assertJson($responseContent); // est ce que $responseContent est de type json
     //     self::assertNotEmpty($responseDecoded); // est ce que $responseContent n'est pas vide
-    // } 
+    // }
 
     private function getPayload()
     {

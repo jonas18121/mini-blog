@@ -7,35 +7,29 @@ namespace App\Entity;
 // use App\Entity\Article;
 // use App\Entity\RessourceId;
 // use App\Entity\Timestapable;
-use App\Entity\{
-    Article,
-    RessourceId,
-    Timestapable
-};
-use Doctrine\ORM\Mapping as ORM;
-use App\Repository\UserRepository;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\{
-    SearchFilter,
-    DateFilter,
-    BooleanFilter,
-    NumericFilter,
-    RangeFilter,
-    ExistsFilter,
-    OrderFilter
-};
-use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\ArrayCollection;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
-use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Security\Core\User\UserInterface;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\ExistsFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\RangeFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * video numero 18 stopper à 05:00
+ * video numero 18 stopper à 05:00.
+ *
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * 
+ *
  * @ApiResource(
  *      collectionOperations={
  *          "get"={
@@ -46,7 +40,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      itemOperations={
  *         "get"={
  *              "normalization_context"={"groups"={"user_details_read"}}
- *          }, 
+ *          },
  *          "put",
  *          "patch",
  *          "delete"
@@ -59,7 +53,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiFilter(RangeFilter::class, properties={"age"})
  * @ApiFilter(ExistsFilter::class, properties={"updatedAt"})
  * @ApiFilter(OrderFilter::class, properties={"id"}, arguments={"orderParameterName"="order"})
- * 
+ *
  * @UniqueEntity("email", message="Cette email est déjà utiliser")
  */
 class User implements UserInterface
@@ -73,7 +67,7 @@ class User implements UserInterface
      * @Assert\NotBlank(message="L'email est obligatoire")
      * @Assert\Email(message="Le format de l'email est invalide")
      */
-    private string $email;// hinting ecrit comme ça est possible depuis php 7.4 
+    private string $email; // hinting ecrit comme ça est possible depuis php 7.4
 
     /**
      * @ORM\Column(type="json")
@@ -107,10 +101,10 @@ class User implements UserInterface
 
     public function __construct()
     {
-        $this->articles     = new ArrayCollection();
-        $this->createdAt    = new \DateTimeImmutable();
-        $this->status       = true;
-        $this->age          = 18;
+        $this->articles = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
+        $this->status = true;
+        $this->age = 18;
     }
 
     public function getEmail(): ?string
@@ -132,7 +126,7 @@ class User implements UserInterface
      */
     public function getUsername(): ?string
     {
-        return (string)$this->email;
+        return (string) $this->email;
     }
 
     public function setUsername(string $email): self

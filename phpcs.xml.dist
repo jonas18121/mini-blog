@@ -10,9 +10,15 @@
 
     <rule ref="PSR2"/>
 
-    <file>bin/</file>
+    <!-- commenter des fichiers qui vont être potentielement analyser un autre jour
+
+    <file>bin/</file> 
     <file>config/</file>
     <file>public/</file>
+    
+    -->
+
+    <!-- fichier qui vont être analyser -->
     <file>src/</file>
     <file>tests/</file>
 

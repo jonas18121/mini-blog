@@ -5,13 +5,12 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistrationType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
@@ -21,13 +20,12 @@ class SecurityController extends AbstractController
     public function registration(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder): Response
     {
         $user = new User();
-        
+
         $form = $this->createForm(RegistrationType::class, $user);
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
-            
+        if ($form->isSubmitted() && $form->isValid()) {
             // $user->setCreatedAt(new \DateTime());
 
             $hash = $encoder->encodePassword($user, $user->getPassword());
@@ -35,7 +33,6 @@ class SecurityController extends AbstractController
 
             $manager->persist($user);
             $manager->flush();
-            
 
             //$this->addFlash('success', 'Votre compte a bien était créé, Connectez-vous !');
             return $this->redirectToRoute('app_login');
@@ -45,7 +42,6 @@ class SecurityController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
 
     /**
      * @Route("/login", name="app_login")

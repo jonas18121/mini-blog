@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class JWTCreatedListener
 {
-    /** @var UserInterface $user  */
+    /** @var UserInterface */
     private UserInterface $user;
 
     public function __construct(Security $security)

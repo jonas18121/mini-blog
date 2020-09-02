@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use Symfony\Component\HttpFoundation\Request;
 use App\Authorizations\AuthenficationCheckerInterface;
 use App\Authorizations\RessourceAccessCheckerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class RessourceUpdator implements RessourceUpdatorInterface
@@ -26,16 +26,14 @@ class RessourceUpdator implements RessourceUpdatorInterface
     public function __construct(
         RessourceAccessCheckerInterface $ressourceAccessChecker,
         AuthenficationCheckerInterface $authenficationChecker
-    )
-    {
+    ) {
         $this->ressourceAccessChecker = $ressourceAccessChecker;
         $this->authenficationChecker = $authenficationChecker;
     }
 
     public function process(string $method, UserInterface $user): bool
     {
-        if(in_array($method, $this->methodAllowed, true))
-        {
+        if (in_array($method, $this->methodAllowed, true)) {
             $this->authenficationChecker->isAuthenticated();
             $this->ressourceAccessChecker->canAccess($user->getId());
 
