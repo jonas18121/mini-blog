@@ -10,7 +10,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 trait Timestapable
 {
     /**
-     * @var \DateTimeInterface
      * @ORM\Column(type="datetime")
      * @Groups({"user_read","user_details_read", "article_details_read", "article_read"})
      */
@@ -23,24 +22,17 @@ trait Timestapable
      */
     private ?\DateTimeInterface $updatedAt;
 
-
     /**
-     * Get the value of createdAt
-     *
-     * @return  \DateTimeInterface
-     */ 
-    public function getCreatedAt(): \DateTimeInterface 
+     * Get the value of createdAt.
+     */
+    public function getCreatedAt(): \DateTimeInterface
     {
         return $this->createdAt;
     }
 
     /**
-     * Set the value of createdAt
-     *
-     * @param  \DateTimeInterface  $createdAt
-     *
-     * @return  self
-     */ 
+     * Set the value of createdAt.
+     */
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
@@ -49,22 +41,20 @@ trait Timestapable
     }
 
     /**
-     * Get the value of updatedAt
+     * Get the value of updatedAt.
      *
-     * @return  \DateTimeInterface
-     */ 
+     * @return \DateTimeInterface
+     */
     public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
     }
 
     /**
-     * Set the value of updatedAt
+     * Set the value of updatedAt.
      *
-     * @param  \DateTimeInterface  $updatedAt
-     *
-     * @return  self
-     */ 
+     * @param \DateTimeInterface $updatedAt
+     */
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;

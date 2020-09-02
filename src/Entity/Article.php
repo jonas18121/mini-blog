@@ -5,16 +5,12 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Entity\User;
-use App\Entity\RessourceId;
-use App\Entity\Timestapable;
-use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Controller\ArticleUpdatedAt;
 use App\Repository\ArticleRepository;
-use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
-
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
@@ -28,7 +24,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *      itemOperations={
  *         "get"={
  *              "normalization_context"={"groups"={"article_details_read"}}
- *          }, 
+ *          },
  *          "put",
  *          "patch",
  *          "delete",
@@ -39,7 +35,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *          }
  *      }
  * )
- * 
+ *
  * On fait une custom operation avec put_updated_at dans itemOperations
  */
 class Article

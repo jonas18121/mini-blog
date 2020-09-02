@@ -15,9 +15,8 @@ trait RessourceId
      * @ORM\Column(type="integer")
      * @Groups({"user_read","user_details_read", "article_details_read", "article_read"})
      */
-    private int $id; // hinting ecrit comme ça est possible depuis php 7.4 
+    private int $id; // hinting ecrit comme ça est possible depuis php 7.4
 
-    
     public function getId(): ?int
     {
         return $this->id;

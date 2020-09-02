@@ -8,5 +8,5 @@ use Symfony\Component\HttpFoundation\Response;
 
 interface JsonResponseInterface
 {
-    public function getJsonResponse( int $statusCode, string $responseBody ) : Response; 
+    public function getJsonResponse(int $statusCode, string $responseBody): Response;
 }
