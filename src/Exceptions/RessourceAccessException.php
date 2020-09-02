@@ -8,5 +8,4 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class RessourceAccessException extends HttpException
 {
-    
 }

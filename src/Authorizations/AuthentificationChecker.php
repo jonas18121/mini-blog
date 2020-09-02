@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace App\Authorizations;
 
 use App\Exceptions\AuthentificationException;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
-use App\Authorizations\AuthenficationCheckerInterface;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class AuthentificationChecker implements AuthenficationCheckerInterface
@@ -22,19 +21,16 @@ class AuthentificationChecker implements AuthenficationCheckerInterface
 
     public function isAuthenticated(): void
     {
-        if(null === $this->user)
-        {
+        if (null === $this->user) {
             throw new AuthentificationException(Response::HTTP_UNAUTHORIZED, self::MESSAGE_ERROR);
         }
     }
 
     public function isMethodAllowed(string $method): bool
     {
-
     }
 
     public function check($object, string $method): void
     {
-
     }
 }

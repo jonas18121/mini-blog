@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace App\Normalizer;
 
-use App\Normalizer\NormalizerInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthentificationExceptionNormalizer extends AbstractNormalizer
 {
     // public function normalize(\Exception $exception) : array
     // {
-    //    $result['code'] = Response::HTTP_UNAUTHORIZED ; 
+    //    $result['code'] = Response::HTTP_UNAUTHORIZED ;
 
     //    $result['body'] = [
     //         'code' => $result['code'],
@@ -21,11 +20,11 @@ class AuthentificationExceptionNormalizer extends AbstractNormalizer
     //    return $result;
     // }
 
-    public function normalize(\Exception $exception) : array
+    public function normalize(\Exception $exception): array
     {
         return $this->exceptionNormalizerFormatter->format(
-           $exception->getMessage(),
-           Response::HTTP_UNAUTHORIZED
+            $exception->getMessage(),
+            Response::HTTP_UNAUTHORIZED
         );
     }
 }

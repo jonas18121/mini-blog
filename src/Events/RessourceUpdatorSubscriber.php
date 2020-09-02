@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Events;
 
-use App\Entity\User;
-use App\Services\RessourceUpdatorInterface;
-use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\HttpKernel\Event\ViewEvent;
 use ApiPlatform\Core\EventListener\EventPriorities;
 use App\Entity\Article;
+use App\Entity\User;
+use App\Services\RessourceUpdatorInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpKernel\Event\ViewEvent;
+use Symfony\Component\HttpKernel\KernelEvents;
 
 class RessourceUpdatorSubscriber implements EventSubscriberInterface
 {
@@ -24,28 +24,20 @@ class RessourceUpdatorSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            KernelEvents::VIEW => ['check', EventPriorities::PRE_WRITE]
+            KernelEvents::VIEW => ['check', EventPriorities::PRE_WRITE],
         ];
     }
 
-    /**
-     * 
-     *
-     * @param ViewEvent $event
-     * @return void
-     */
-    public function check(ViewEvent $event) : void
+    public function check(ViewEvent $event): void
     {
         $object = $event->getControllerResult();
 
-        if($object instanceof User || $object instanceof Article)
-        {
+        if ($object instanceof User || $object instanceof Article) {
             $user = $object instanceof User ? $object : $object->getAuthor();
 
             $canProcess = $this->ressourceUpdator->process($event->getRequest()->getMethod(), $user);
 
-            if($canProcess)
-            {
+            if ($canProcess) {
                 $object->setUpdatedAt(new \DateTimeImmutable());
             }
         }
