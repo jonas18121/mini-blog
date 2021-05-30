@@ -7,26 +7,28 @@ namespace App\Entity;
 // use App\Entity\Article;
 // use App\Entity\RessourceId;
 // use App\Entity\Timestapable;
-use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\ExistsFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\RangeFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Security\Core\User\UserInterface;
+use App\Repository\UserRepository;
+use App\Controller\UserImageController;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\RangeFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\ExistsFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
- * video numero 18 stopper à 05:00.
  *
  * @ORM\Entity(repositoryClass=UserRepository::class)
  *
@@ -43,7 +45,13 @@ use Symfony\Component\Validator\Constraints as Assert;
  *          },
  *          "put",
  *          "patch",
- *          "delete"
+ *          "delete",
+ *          "image"={
+ *              "method"="POST",
+ *              "path"="/users/{id}/image",
+ *              "controller"=UserImageController::class,
+ *              "deserialize"=false
+ *          }
  *      }
  * )
  * @ApiFilter(SearchFilter::class, properties={"email": "partial"})
@@ -55,6 +63,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiFilter(OrderFilter::class, properties={"id"}, arguments={"orderParameterName"="order"})
  *
  * @UniqueEntity("email", message="Cette email est déjà utiliser")
+ *
+ * @Vich\Uploadable
  */
 class User implements UserInterface
 {
@@ -98,6 +108,29 @@ class User implements UserInterface
      * @Groups({"user_read","user_details_read", "article_details_read"})
      */
     private int $age;
+
+    /**
+     *
+     * @var File|null
+     *
+     * @Vich\UploadableField(mapping="user_image", fileNameProperty="filePath")
+     */
+    private $file;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @Groups({"user_read","user_details_read", "article_details_read"})
+     */
+    private $filePath;
+
+    /**
+     * @var string|null
+     * 
+     * @Groups({"user_read","user_details_read", "article_details_read"})
+     *
+     */
+    private $fileUrl;
 
     public function __construct()
     {
@@ -238,6 +271,66 @@ class User implements UserInterface
     public function setAge(int $age): self
     {
         $this->age = $age;
+
+        return $this;
+    }
+
+    public function getFilePath(): ?string
+    {
+        return $this->filePath;
+    }
+
+    public function setFilePath(?string $filePath): self
+    {
+        $this->filePath = $filePath;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of file
+     *
+     * @return  File|null
+     */ 
+    public function getFile(): ?File
+    {
+        return $this->file;
+    }
+
+    /**
+     * Set the value of file
+     *
+     * @param  File|null  $file
+     *
+     * @return  self
+     */ 
+    public function setFile(?File $file): User
+    {
+        $this->file = $file;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of fileUrl
+     *
+     * @return  string|null
+     */ 
+    public function getFileUrl()
+    {
+        return $this->fileUrl;
+    }
+
+    /**
+     * Set the value of fileUrl
+     *
+     * @param  string|null  $fileUrl
+     *
+     * @return  self
+     */ 
+    public function setFileUrl($fileUrl)
+    {
+        $this->fileUrl = $fileUrl;
 
         return $this;
     }
